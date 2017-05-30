@@ -1,0 +1,41 @@
+version: '2.0'
+
+services:
+  app:
+    image: app
+    volumes:
+      - ./symfony_app:/usr/src/symfony_app
+    ports:
+      - "127.0.0.1:8000:8000"
+    command: php -S 0.0.0.0:8000 web/app_dev.php
+    links:
+      - mysql:mysql
+
+  console:
+    image: app
+    volumes:
+      - ./symfony_app:/usr/src/symfony_app
+    entrypoint:
+      - ./app/console
+    links:
+      - mysql:mysql
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    ports:
+      - "33060:3306"
+
+  composer:
+    image: composer/composer:1.1-alpine
+    volumes:
+      - ./symfony_app:/app/
+      - ~/.ssh:/root/.ssh
+
+  phpunit:
+    image: phpunit/phpunit:6.0.6
+    volumes:
+      - .:/var/www
