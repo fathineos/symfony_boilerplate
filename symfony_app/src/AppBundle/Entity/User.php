@@ -29,4 +29,31 @@ class User
     {
         $this->apiKey = $apiKey;
     }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiKey(): string
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAttributes(): array
+    {
+        return [
+            'api_key' => $this->getApiKey(),
+            'id' => $this->getId(),
+        ];
+    }
 }
