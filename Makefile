@@ -1,7 +1,7 @@
 container:
 	docker build -t app .
 
-init:
+init: container
 	docker-compose run --rm composer install
 	docker-compose up -d mysql; sleep 15;
 	docker-compose run --rm console doctrine:migrations:migrate

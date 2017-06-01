@@ -7,7 +7,7 @@ services:
       - ./symfony_app:/usr/src/symfony_app
     ports:
       - "127.0.0.1:8000:8000"
-    command: php -S 0.0.0.0:8000 web/app_dev.php
+    command: ./app/console  server:run 0.0.0.0:8000
     links:
       - mysql:mysql
 
