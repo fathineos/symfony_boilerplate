@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Log;
 
 class UserController extends Controller implements ApiAuthenticationController
 {
@@ -22,9 +23,13 @@ class UserController extends Controller implements ApiAuthenticationController
     ): JsonResponse
     {
         $apiKey = $request->get('api_key');
-        if (!$apiKey) {
-            return $this->errorResponse('Api key not provided', 400);
-        }
+        $log = new Log;
+        $log->setApiKey($apiKey);
+        $log->setUserId($id);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($log);
+        $em->flush();
+
         $user = $this->getDoctrine()
             ->getManager()
             ->getRepository(User::class)
