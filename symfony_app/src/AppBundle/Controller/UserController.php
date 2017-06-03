@@ -9,7 +9,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Log;
 
-class UserController extends Controller implements ApiAuthenticationController
+class UserController extends Controller implements
+    ApiAuthenticationControllerInterface
 {
     /**
      * @Route("/user/{id}", name="user_index")
@@ -22,9 +23,8 @@ class UserController extends Controller implements ApiAuthenticationController
         string $id
     ): JsonResponse
     {
-        $apiKey = $request->get('api_key');
         $log = new Log;
-        $log->setApiKey($apiKey);
+        $log->setApiKey($request->get('api_key'));
         $log->setUserId($id);
         $em = $this->getDoctrine()->getManager();
         $em->persist($log);

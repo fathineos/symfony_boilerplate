@@ -4,6 +4,13 @@ $ make init
 $ make run
 ```
 
+## Test with curl
+```
+$ curl "http://localhost:8000/user/1?api_key=aaaaaa"
+$ curl "http://localhost:8000/user/2?api_key=bbbbbb"
+
+```
+
 # Requirements
 ## Install docker 
 ```

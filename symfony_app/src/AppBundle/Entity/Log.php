@@ -52,7 +52,7 @@ class Log
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getUserId(): int
     {
